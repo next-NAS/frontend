@@ -46,6 +46,7 @@ export default {
   data() {
     return {
       profileURL: require('../assets/profile.png'),
+
     }
   }
 }
