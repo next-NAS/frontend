@@ -21,7 +21,7 @@
     <el-col class="user-profile" :span="1">
       <div class="demo-basic--circle">
         <div class="block">
-          <el-avatar :size="40" :src="circleUrl">
+          <el-avatar :size="40" :src="profileURL">
           </el-avatar>
         </div>
       </div>
@@ -45,8 +45,7 @@ export default {
   name: 'AutomlHeader',
   data() {
     return {
-      logoUrl: require('../assets/logo.png'),
-      circleUrl: require('../assets/profile.png'),
+      profileURL: require('../assets/profile.png'),
     }
   }
 }
