@@ -45,8 +45,6 @@ export default {
   name: 'AutomlHeader',
   data() {
     return {
-      logoUrl: require('../assets/logo.png'),
-      circleUrl: require('../assets/profile.png'),
     }
   }
 }
