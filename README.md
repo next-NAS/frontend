@@ -8,21 +8,24 @@
 
 ## 安装
 
- - Clone or download this repository
- - Enter your local directory, and install dependencies:
+ - clone这个项目
+``` bash
+git clone https://github.com/next-NAS/frontend.git
+```
+ - 进入项目安装依赖
 
 ``` bash
-yarn
+npm install
 ```
 
-## 开发
+## 进行开发
 
 ``` bash
 # serve with hot reload at localhost:8010
 npm run dev
 ```
 
-## 部署
+## 编译
 
 ``` bash
 # build for production with minification
