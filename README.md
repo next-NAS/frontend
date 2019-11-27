@@ -24,13 +24,13 @@ npm install
 
 - 开始开发
 ``` bash
-# serve with hot reload at localhost:8010
+# 默认的前端server端口为8010  
 npm run dev
 ```
 
 - 编译
 ``` bash
-# build for production with minification
+# 只进行开发的话，并不需要编译
 npm run build
 ```
 
@@ -39,6 +39,6 @@ npm run build
 ``` bash
 git checkout -b your_branch_name
 ```
-这里把`your_branch_name`替换为你希望的分支名  
-然后进行开发和提交
+这里把`your_branch_name`替换为你希望的分支名。  
+然后进行开发和提交。  
 完成开发后，`pull request`即可。
