@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       options: {
-        target: '/api/dataset',
+        target: '/api/image-classification/guest/example_task/dataset',
         testChunks: false
       },
       attrs: {
