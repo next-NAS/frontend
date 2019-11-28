@@ -1,5 +1,8 @@
 <template>
-  <uploader :options="options" class="uploader-example">
+  <uploader class="uploader-example"
+            :options="options"
+            @complete="onUploadComplete"
+            ref="uploader" >
     <uploader-unsupport></uploader-unsupport>
     <uploader-drop>
       <p>将文件夹拖曳至此，或者</p>
@@ -12,21 +15,31 @@
 <script>
 export default {
   name: "UploadFileFolder",
+  props: ["userId", "taskName"],
   data() {
     return {
       options: {
-        target: '/api/image-classification/guest/example_task/dataset',
+        target: ["api", this.userId, this.taskName, "dataset"]
+                .join("/"),
         testChunks: false
       },
       attrs: {
-        accept: 'image/*'
+        accept: "image/*"
       }
+    }
+  },
+  methods: {
+    onUploadComplete() {
+      const uploader = this.$refs.uploader.uploader
+      let filePath = Object.getOwnPropertyNames(uploader.filePaths)[0]
+      let datasetName = filePath.split("/")[0]
+      this.$emit("upload-complete", datasetName)
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .uploader-example {
   top: 5px;
   width: auto;

@@ -33,7 +33,8 @@
     <el-col class="account-bar" :span="3">
       <el-dropdown class="user-account">
         <span>
-          系统默认用户<i class="el-icon-arrow-down el-icon--right"></i>
+          {{ userId === "guest" ? "系统默认用户" : userId }}
+          <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>切换账号</el-dropdown-item>
@@ -47,6 +48,7 @@
 <script>
 export default {
   name: 'AutomlHeader',
+  props: ["userId"],
   data() {
     return {
       profileURL: require('../assets/profile.png'),

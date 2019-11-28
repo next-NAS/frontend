@@ -6,7 +6,7 @@
         任务名
       </el-col>
       <el-col :span="12">
-        ImageNet分类
+        {{ taskName }}
       </el-col>
     </el-row>
     <el-divider></el-divider>
@@ -15,7 +15,7 @@
         任务类型
       </el-col>
       <el-col :span="12">
-        图像分类
+        {{ taskType }}
       </el-col>
     </el-row>
     <el-divider></el-divider>
@@ -24,7 +24,7 @@
         数据文件
       </el-col>
       <el-col :span="12">
-        imageNet-10-classification
+        {{ datasetName }}
       </el-col>
     </el-row>
   </el-card>
@@ -33,6 +33,7 @@
 
 <script>
 export default {
-  name: "TaskConfigList"
+  name: "TaskConfigList",
+  props: ["taskName", "taskType", "datasetName"]
 }
 </script>

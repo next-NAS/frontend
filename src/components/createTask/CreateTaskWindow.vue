@@ -27,10 +27,16 @@
           </el-row>
         </div>
         <div v-if="step === 2">
-          <upload-file-folder />
+          <upload-file-folder
+              :userId="userId"
+              :taskName="taskName" 
+              @upload-complete="onUploadComplete"/>
         </div>
         <div v-if="step === 3">
-          <task-config-list />
+          <task-config-list 
+              :taskName="taskName" 
+              :taskType="taskType" 
+              :datasetName="datasetName" />
         </div>
       </div>
     </el-col>
@@ -64,17 +70,22 @@ export default {
     "upload-file-folder": UploadFileFolder,
     "task-config-list": TaskConfigList
   },
+  props: ["userId"],
   data() {
     return {
       step: 0,
       taskType: "",
-      taskName: ""
+      taskName: "",
+      datasetName: ""
     }
   },
   methods: {
     next() {
       if (this.step < 3) {
         this.step++;
+      }
+      else { // 最后一步，完成任务
+        
       }
     },
     prev() {
@@ -84,7 +95,9 @@ export default {
     },
     setTaskType(selectedType) {
       this.taskType = selectedType
-      console.log(this.taskType)
+    },
+    onUploadComplete(datasetName) {
+      this.datasetName = datasetName
     }
   },
   computed: {
@@ -94,6 +107,9 @@ export default {
       }
       else if (this.step === 1) {
         return this.taskName === ""
+      }
+      else if (this.step === 2) {
+        return this.datasetName === ""
       }
       return false
     }

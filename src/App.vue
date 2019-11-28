@@ -1,13 +1,16 @@
 <template>
   <div id="app">
     <!-- <create-task-window v-show="creatingTask"/> -->
-    <el-dialog width="58%" title="创建任务" :visible.sync="creatingTask">
-      <create-task-window />
+    <el-dialog width="58%" title="创建任务" 
+              :visible.sync="creatingTask" 
+              destroy-on-close>
+      <create-task-window
+              :userId="userId" />
     </el-dialog>
     <el-container>
       <!-- header -->
       <el-header class="header">
-        <automl-header @creat-task="createTask"/>
+        <automl-header @creat-task="createTask" :userId="userId" />
       </el-header>
       <el-container>
         <!-- aside -->
@@ -43,7 +46,8 @@ export default {
   },
   data() {
     return {
-      creatingTask: false
+      creatingTask: false,
+      userId: "guest"
     }
   },
   methods: {
