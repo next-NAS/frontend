@@ -41,12 +41,20 @@
       </div>
     </el-col>
     <el-col :span="2">
-      <el-button style="float: right;  margin-right:0px;" 
-                circle 
-                :type="step === 3 ? 'success' : 'primary'" 
-                :icon="step === 3 ? 'el-icon-check' : 'el-icon-arrow-right'"
-                @click="next"
-                :disabled="checkIntegrality"> </el-button>
+      <el-tooltip class="item" effect="dark" placement="top-end"
+                  :content="missingTooltip"
+                  :disabled="checkIntegrality">
+        <!-- 由于tooltip不支持disable的元素，所以在外面套一层div -->
+        <div>
+        <el-button style="float: right;  margin-right:0px;" 
+                  circle 
+                  :type="step === 3 ? 'success' : 'primary'" 
+                  :icon="step === 3 ? 'el-icon-check' : 'el-icon-arrow-right'"
+                  @click="next"
+                  :disabled="!checkIntegrality">
+        </el-button>
+        </div>
+       </el-tooltip>
     </el-col>
   </el-row>
   <el-steps :space="300" :active="step" finish-status="success" simple>
@@ -119,15 +127,27 @@ export default {
   computed: {
     checkIntegrality() {
       if (this.step === 0) {
-        return this.taskType === ""
+        return this.taskType !== ""
       }
       else if (this.step === 1) {
-        return this.taskName === ""
+        return this.taskName !== ""
       }
       else if (this.step === 2) {
-        return this.datasetName === ""
+        return this.datasetName !== ""
       }
-      return false
+      return true
+    },
+    missingTooltip() {
+      if (this.step === 0) {
+        return "请点击选择要创建的任务类型"
+      }
+      else if (this.step === 1) {
+        return "请输入任务的名称"
+      }
+      else if (this.step === 2) {
+        return "请上传数据集文件夹"
+      }
+      return ""
     }
   }
 }
