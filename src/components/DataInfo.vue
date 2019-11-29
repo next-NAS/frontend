@@ -3,14 +3,14 @@
     <el-main>
       <el-card class="box-card" shadow="hover">
         <div slot="header" class="clearfix">
-          <span>ImageNet</span>
+          <span>{{ datasetName === "" ? "未加载" : datasetName }}</span>
         </div>
         <el-row>
           <el-col :span="12">
             样本数量
           </el-col>
           <el-col :span="12">
-            12.3 K
+            {{ sampleNum }}
           </el-col>
         </el-row>
         <el-divider></el-divider>
@@ -19,7 +19,7 @@
             文件大小
           </el-col>
           <el-col :span="12">
-            42.7 TB
+            {{ datasetSize }}
           </el-col>
         </el-row>
         <el-divider></el-divider>
@@ -28,7 +28,7 @@
             样本总数
           </el-col>
           <el-col :span="12">
-            5
+            {{ classNum }}
           </el-col>
         </el-row>
         <el-divider></el-divider>
@@ -49,6 +49,7 @@ import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/tooltip'
 export default {
   name: 'DataInfo',
+  props: ["datasetName", "sampleNum", "datasetSize", "classNum"],
   data() {
     return {
       chartOptionsPie: {

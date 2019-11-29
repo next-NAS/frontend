@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <!-- <create-task-window v-show="creatingTask"/> -->
     <el-dialog width="58%" title="创建任务" 
               :visible.sync="creatingTask" 
               destroy-on-close>
       <create-task-window
-              :userId="userId" />
+              :userId="userId"
+              @receive-dataset-info="onReceivedDatasetInfo" />
     </el-dialog>
     <el-container>
       <!-- header -->
@@ -15,7 +15,11 @@
       <el-container>
         <!-- aside -->
         <el-aside width="260px">
-          <data-info/>
+          <data-info
+              :datasetName="datasetName"
+              :sampleNum="sampleNum"
+              :datasetSize="datasetSize"
+              :classNum="classNum" />
         </el-aside>
         <!-- main -->
         <el-main>
@@ -47,12 +51,49 @@ export default {
   data() {
     return {
       creatingTask: false,
-      userId: "guest"
+      userId: "guest",
+      datasetName: "",
+      sampleNum: "",
+      datasetSize: "",
+      classNum: ""
     }
   },
   methods: {
     createTask() {
       this.creatingTask = !this.creatingTask
+    },
+    onReceivedDatasetInfo(dataset) {
+      this.datasetName = dataset.name
+      this.sampleNum = dataset.sample_num
+      this.datasetSize = this.size_format(dataset.size)
+      this.classNum = dataset.class_num
+      this.creatingTask = false
+      this.createSuccessfully()
+    },
+    createSuccessfully() {
+      this.$message({
+        message: '任务创建成功！',
+        type: 'success'
+      });
+    },
+    size_format(size) {
+      let metrix = ["B", "KB", "MB", "GB", "TB", "PB"]
+      return this.human_format(size, metrix, 1024, 2)
+    },
+    count_format(count) {
+      let metrix = ["", "K", "M", "G", "P"]
+      return this.human_format(count, metrix, 1000, 2)
+    },
+    human_format(number, metrix, radix, fix) {
+      if (!metrix instanceof Array) {
+        return ""
+      }
+      let index = 0
+      while (number >= 1024 && index < metrix.length) {
+        number /= radix
+        index += 1
+      }
+      return number.toFixed(fix) + " " + metrix[index]
     }
   }
 }

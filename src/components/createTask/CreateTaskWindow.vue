@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import NewTaskList from "./NewTaskList"
 import UploadFileFolder from "./UploadFileFolder"
 import TaskConfigList from "./TaskConfigList"
@@ -85,7 +86,7 @@ export default {
         this.step++;
       }
       else { // 最后一步，完成任务
-        
+        this.postMetaData();
       }
     },
     prev() {
@@ -98,6 +99,21 @@ export default {
     },
     onUploadComplete(datasetName) {
       this.datasetName = datasetName
+    },
+    postMetaData() {
+      let that = this
+      axios.post(["api", this.userId, this.taskName, "task-metadata"].join("/"), {
+        task_type: this.taskType,
+        dataset_name: this.datasetName
+      }, )
+      .then(function(response) {
+        let dataset = response.data.dataset
+        that.$emit("receive-dataset-info", dataset)
+      })
+      .catch(function(error) {
+        console.log(error)
+        alert("未知错误")
+      })
     }
   },
   computed: {
