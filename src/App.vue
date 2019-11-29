@@ -19,7 +19,8 @@
               :datasetName="datasetName"
               :sampleNum="sampleNum"
               :datasetSize="datasetSize"
-              :classNum="classNum" />
+              :classNum="classNum"
+              :chartOptionsPie="dataInfoChartOption" />
         </el-aside>
         <!-- main -->
         <el-main>
@@ -51,24 +52,49 @@ export default {
   data() {
     return {
       creatingTask: false,
+      taskName: "",
+      taskType: "",
       userId: "guest",
       datasetName: "",
       sampleNum: "",
       datasetSize: "",
-      classNum: ""
+      classNum: "",
+      dataInfoChartOption: {
+        tooltip : {
+          trigger: 'item',
+          formatter: "{b} : {c} ({d}%)",
+          confine: true
+        },
+        series : [
+          {
+            name: '类别分布',
+            type: 'pie',
+            radius: '55%',
+            data:[
+              //{value:0, name:'未知类别'},
+            ]
+          }
+        ]
+      }
     }
   },
   methods: {
     createTask() {
       this.creatingTask = !this.creatingTask
     },
-    onReceivedDatasetInfo(dataset) {
+    onReceivedDatasetInfo(data) {
+      this.taskName = data.name
+      this.taskType = data.task_type
+
+      let dataset = data.dataset
       this.datasetName = dataset.name
-      this.sampleNum = dataset.sample_num
-      this.datasetSize = this.size_format(dataset.size)
+      this.sampleNum = this.countFormat(dataset.sample_num)
+      this.datasetSize = this.sizeFormat(dataset.size)
       this.classNum = dataset.class_num
       this.creatingTask = false
+
       this.createSuccessfully()
+      this.updateDataInfoChart(dataset)
     },
     createSuccessfully() {
       this.$message({
@@ -76,11 +102,11 @@ export default {
         type: 'success'
       });
     },
-    size_format(size) {
+    sizeFormat(size) {
       let metrix = ["B", "KB", "MB", "GB", "TB", "PB"]
       return this.human_format(size, metrix, 1024, 2)
     },
-    count_format(count) {
+    countFormat(count) {
       let metrix = ["", "K", "M", "G", "P"]
       return this.human_format(count, metrix, 1000, 2)
     },
@@ -94,6 +120,16 @@ export default {
         index += 1
       }
       return number.toFixed(fix) + " " + metrix[index]
+    },
+    updateDataInfoChart(dataset) {
+      let newData = Array()
+      for (const index in dataset.classes) {
+        newData.push({
+          value: dataset.nums[index],
+          name: dataset.classes[index],
+        })
+      }
+      this.dataInfoChartOption.series[0].data = newData
     }
   }
 }

@@ -3,7 +3,7 @@
     <el-col :span="3">
       <h1 class="logo-text">AutoML</h1>
     </el-col>
-    <el-col :span="2" offset=11>
+    <el-col :span="2" :offset="11">
       <el-dropdown>
         <span class="el-dropdown-link">
           任务列表<i class="el-icon-arrow-down el-icon--right"></i>

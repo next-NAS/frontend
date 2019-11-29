@@ -49,30 +49,9 @@ import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/tooltip'
 export default {
   name: 'DataInfo',
-  props: ["datasetName", "sampleNum", "datasetSize", "classNum"],
+  props: ["datasetName", "sampleNum", "datasetSize", "classNum", "chartOptionsPie"],
   data() {
     return {
-      chartOptionsPie: {
-        tooltip : {
-          trigger: 'item',
-          formatter: "{b} : {c} ({d}%)",
-          confine: true
-        },
-        series : [
-          {
-            name: '类别分布',
-            type: 'pie',
-            radius: '55%',
-            data:[
-              {value:235, name:'狗'},
-              {value:274, name:'猫'},
-              {value:310, name:'牛'},
-              {value:335, name:'羊'},
-              {value:400, name:'猪'}
-            ]
-          }
-        ]
-      }
     }
   }
 }

@@ -4,12 +4,12 @@
       <el-row style="height: 0px;">
         <el-col :span="3">
           <el-form-item label="推荐配置">
-            <el-switch v-model="form.delivery"></el-switch>
+            <el-switch v-model="form.recommendedConfig"></el-switch>
           </el-form-item>
         </el-col>
-        <el-col :span="5" offset=1>
+        <el-col :span="5" :offset=1>
           <el-form-item label="训练时长">
-            <el-select v-model="form.region" placeholder="选择时长">
+            <el-select v-model="form.trainingTime" placeholder="选择时长">
               <el-option label="1小时" value="shanghai"></el-option>
               <el-option label="2小时" value="beijing"></el-option>
             </el-select>
@@ -17,7 +17,7 @@
         </el-col>
         <el-col :span="5">
           <el-form-item label="尝试次数">
-            <el-select v-model="form.tryTime" placeholder="选择次数">
+            <el-select v-model="form.tryTimes" placeholder="选择次数">
               <el-option label="1" value="tryTime1"></el-option>
               <el-option label="2" value="tryTime2"></el-option>
             </el-select>
@@ -33,7 +33,7 @@
         </el-col>
         <el-col :span="3">
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">开始训练</el-button>
+            <el-button type="primary" @click="startTraining">开始训练</el-button>
           </el-form-item>
         </el-col>
       </el-row>
@@ -47,15 +47,16 @@ export default {
   data() {
     return {
       form: {
-        name: '',
-        region: '',
-        tryTime: '',
+        trainingTime: '',
+        tryTimes: '',
         nodeNum: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        recommendedConfig: false,
       }
+    }
+  },
+  methods: {
+    startTraining() {
+
     }
   }
 }

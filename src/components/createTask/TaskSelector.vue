@@ -1,8 +1,7 @@
 <template>
 <el-card :class="[selected ? 'selected-style': 
           (isAvailable ? 'available' : 'disable')]"
-  :body-style="{ padding: '0px' }" 
-  :shadow="hover">
+  :body-style="{ padding: '0px' }" >
   <div class="task-icon">
     <i :class="iconClass"></i>
   </div>

@@ -107,8 +107,8 @@ export default {
         dataset_name: this.datasetName
       }, )
       .then(function(response) {
-        let dataset = response.data.dataset
-        that.$emit("receive-dataset-info", dataset)
+        let data = response.data
+        that.$emit("receive-dataset-info", data)
       })
       .catch(function(error) {
         console.log(error)
