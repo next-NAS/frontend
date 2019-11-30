@@ -9,10 +9,9 @@
           任务列表<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>图像分类：ImageNet</el-dropdown-item>
-          <el-dropdown-item>图像分类：TIMIT</el-dropdown-item>
-          <el-dropdown-item disabled>图像分类：医疗图像分类</el-dropdown-item>
-          <el-dropdown-item divided>目标检测：人脸检测</el-dropdown-item>
+          <el-dropdown-item v-for="task in taskList" :key="task.id">
+            {{ transferTaskType(task.task_type) }}：{{ task.name }}
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-col>
@@ -48,10 +47,18 @@
 <script>
 export default {
   name: 'AutomlHeader',
-  props: ["userId"],
+  props: ["userId", "taskList"],
   data() {
     return {
       profileURL: require('../assets/profile.png'),
+    }
+  },
+  methods: {
+    transferTaskType(originType) {
+      let transferMap = {
+        "imageClassification": "图像分类"
+      }
+      return transferMap[originType]
     }
   }
 }

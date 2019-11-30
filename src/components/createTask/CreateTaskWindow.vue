@@ -110,7 +110,7 @@ export default {
     },
     postMetaData() {
       let that = this
-      axios.post(["api", this.userId, "tasks"].join("/"), {
+      axios.post(["api", that.userId, "tasks"].join("/"), {
         task_type: this.taskType,
         dataset_name: this.datasetName,
         task_id: this.taskName
@@ -123,7 +123,7 @@ export default {
         console.log(error)
         alert("未知错误")
       })
-    }
+    },
   },
   computed: {
     checkIntegrality() {

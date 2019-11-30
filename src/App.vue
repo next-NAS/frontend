@@ -10,7 +10,9 @@
     <el-container>
       <!-- header -->
       <el-header class="header">
-        <automl-header @creat-task="createTask" :userId="userId" />
+        <automl-header @creat-task="createTask" 
+                        :userId="userId"
+                        :taskList="taskList" />
       </el-header>
       <el-container>
         <!-- aside -->
@@ -35,6 +37,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import AutomlHeader from "./components/Header"
 import DataInfo from "./components/DataInfo"
 import TrainingResult from "./components/TrainingResult"
@@ -48,6 +51,9 @@ export default {
     "training-result": TrainingResult,
     "training-config": TrainingConfig,
     "create-task-window": CreateTaskWindow
+  },
+  created() {
+    this.updateTaskList()
   },
   data() {
     return {
@@ -75,7 +81,8 @@ export default {
             ]
           }
         ]
-      }
+      },
+      taskList: Array()
     }
   },
   methods: {
@@ -97,11 +104,13 @@ export default {
 
       this.createSuccessfully()
       this.updateDataInfoChart(dataset)
+      this.updateTaskList()
     },
     createSuccessfully() {
       this.$message({
         message: '任务创建成功！',
-        type: 'success'
+        type: 'success',
+        duration: 1500
       });
     },
     sizeFormat(size) {
@@ -132,6 +141,20 @@ export default {
         })
       }
       this.dataInfoChartOption.series[0].data = newData
+    },
+    updateTaskList() {
+      let that = this
+      this.taskList = Array()
+      axios
+        .get(["api", that.userId, "tasks"].join("/"))
+        .then(function(response) {
+          that.taskList = response.data
+          console.log(that.taskList)
+        })
+        .catch(function(error) {
+          console.log(error)
+          alert("任务列表获取失败")
+        })
     }
   }
 }
