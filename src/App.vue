@@ -88,7 +88,9 @@ export default {
 
       let dataset = data.dataset
       this.datasetName = dataset.name
-      this.sampleNum = this.countFormat(dataset.sample_num)
+      if(dataset.sample_num > 1000)
+        dataset.sample_num = this.countFormat(dataset.sample_num)
+      this.sampleNum = dataset.sample_num
       this.datasetSize = this.sizeFormat(dataset.size)
       this.classNum = dataset.class_num
       this.creatingTask = false

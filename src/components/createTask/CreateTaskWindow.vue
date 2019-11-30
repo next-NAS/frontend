@@ -110,9 +110,10 @@ export default {
     },
     postMetaData() {
       let that = this
-      axios.post(["api", this.userId, this.taskName, "task-metadata"].join("/"), {
+      axios.post(["api", this.userId, "tasks"].join("/"), {
         task_type: this.taskType,
-        dataset_name: this.datasetName
+        dataset_name: this.datasetName,
+        task_id: this.taskName
       }, )
       .then(function(response) {
         let data = response.data
