@@ -66,49 +66,25 @@ export default {
                 {type: 'max', name: '最大值'},
                 {type: 'min', name: '最小值'}
               ]
+            },
+            markLine: {
+              data: [
+                {
+                  type: 'average', 
+                  name: '平均值',
+                },
+              ]
             }
           },
           {
             name:'召回率',
             type:'line',
-            data:[0.1, 0.2, 0.2, 0.5, 0.63, 0.62, 0.3],
-            markPoint: {
-              data: [
-                {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
-              ]
-            }
+            data:[0, 0, 0, 0, 0, 0, 0]
           },
           {
             name:'F1值',
             type:'line',
-            data:[0.1, 0.23, 0.25, 0.6, 0.60, 0.64, 0.4],
-            markPoint: {
-              data: [
-                {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
-              ]
-            },
-            markLine: {
-              data: [
-                {type: 'average', name: '平均值'},
-                [
-                  {
-                    symbol: 'none',
-                    x: '90%',
-                    yAxis: 'max'
-                  }, 
-                  {
-                    symbol: 'circle',
-                    label: {
-                      normal: {
-                      position: 'start',
-                      formatter: '最大值'
-                    }
-                  },
-                  type: 'max',
-                  name: '最高点'
-                }]
-              ]
-            }
+            data:[0, 0, 0, 0, 0, 0, 0],
           }
         ]
       },
